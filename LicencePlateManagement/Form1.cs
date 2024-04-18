@@ -30,13 +30,17 @@ namespace LicencePlateManagement
 
         private void BtnFileReset_Click(object sender, EventArgs e)
         {
-            // TODO
+            // Clear lists and update listboxes.
+            licencePlates.Clear();
+            taggedLicencePlates.Clear();
+            ShowList(licencePlates, listBoxMain);
+            ShowList(taggedLicencePlates, listBoxTagged);
         }
 
         private void BtnActionEnter_Click(object sender, EventArgs e)
         {
             // Check if text input is valid.
-            string licence = txtBoxAction.Text;
+            string licence = txtBoxAction.Text.ToUpper();
             if (!IsInputValid(licence)) return;
 
             // If licence plate is already inside the list then cancel.
@@ -50,23 +54,50 @@ namespace LicencePlateManagement
         private void BtnActionExit_Click(object sender, EventArgs e)
         {
             // Check if text input is valid.
-            string licence = txtBoxAction.Text;
+            string licence = txtBoxAction.Text.ToUpper();
             if (!IsInputValid(licence)) return;
-            // TODO
+
+            // Set focus back to the text box.
+            txtBoxAction.Focus();
+
+            // Check if item is inside list.
+            if (!AlreadyExistsInList(licencePlates, licence))
+            {
+                MessageBox.Show($"The licence plate {licence} does not exist inside the list.");
+                return;
+            }
+
+            // If item is inside list, remove it and update listbox displays.
+            licencePlates.Remove(licence);
+            ShowList(licencePlates, listBoxMain);
         }
 
         private void BtnActionEdit_Click(object sender, EventArgs e)
         {
+            // Set focus back to the text box.
+            txtBoxAction.Focus();
+
             // Check if text input is valid.
-            string licence = txtBoxAction.Text;
+            string licence = txtBoxAction.Text.ToUpper();
             if (!IsInputValid(licence)) return;
-            // TODO
+
+            int i = listBoxMain.SelectedIndex;
+            // If there is no selected item inside the listbox, then show error.
+            if (i < 0)
+            {
+                MessageBox.Show("Please select an licence plate to edit.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Replace licence plate with editted version.
+            licencePlates[i] = licence;
+            ShowList(licencePlates, listBoxMain, true);
         }
 
         private void BtnActionSearchBinary_Click(object sender, EventArgs e)
         {
             // Check if text input is valid.
-            string licence = txtBoxAction.Text;
+            string licence = txtBoxAction.Text.ToUpper();
             if (!IsInputValid(licence)) return;
             // TODO
         }
@@ -74,29 +105,68 @@ namespace LicencePlateManagement
         private void BtnActionSearchLinear_Click(object sender, EventArgs e)
         {
             // Check if text input is valid.
-            string licence = txtBoxAction.Text;
+            string licence = txtBoxAction.Text.ToUpper();
             if (!IsInputValid(licence)) return;
             // TODO
         }
 
         private void BtnTagAdd_Click(object sender, EventArgs e)
         {
-            // TODO
+            // If there is no selected item inside the listbox, then cancel.
+            if (listBoxMain.SelectedIndex < 0) return;
+
+            // Move the selected licence plate to the tagged list.
+            TagLicence(listBoxMain.SelectedIndex);
+
+            // Update the list boxes.
+            ShowList(licencePlates, listBoxMain, false);
+            ShowList(taggedLicencePlates, listBoxTagged, true);
         }
 
         private void BtnTagRemove_Click(object sender, EventArgs e)
         {
-            // TODO
+            // If there is no selected item inside the listbox, then cancel.
+            if (listBoxTagged.SelectedIndex < 0) return;
+
+            // Move the selected licence plate to the tagged list.
+            UntagLicence(listBoxTagged.SelectedIndex);
+
+            // Update the list boxes.
+            ShowList(licencePlates, listBoxMain, true);
+            ShowList(taggedLicencePlates, listBoxTagged, false);
         }
 
         private void ListBoxMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int i = listBoxMain.SelectedIndex;
+
+            // If there is no selected item inside the listbox, then cancel.
+            if (i < 0) return;
+
+            // Add the contents of the item at index `i` into the textbox.
+            txtBoxAction.Text = listBoxMain.Items[i].ToString();
+        }
+
+        private void ListBoxTagged_SelectedIndexChanged(object sender, EventArgs e)
         {
             // TODO
         }
 
         private void ListBoxMain_DoubleClick(object sender, EventArgs e)
         {
-            // TODO
+            if (listBoxMain.SelectedIndex < 0) return;
+            int i = listBoxMain.SelectedIndex;
+
+            DialogResult msg = MessageBox.Show($"Do you want to remove '{licencePlates[i]}' from the list.", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (msg == DialogResult.Yes)
+            {
+                licencePlates.RemoveAt(i);
+                ShowList(licencePlates, listBoxMain);
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void ListBoxTagged_DoubleClick(object sender, EventArgs e)
@@ -115,13 +185,14 @@ namespace LicencePlateManagement
         /// <param name="restore">Restore previous selected item index.</param>
         private void ShowList(List<string> list, ListBox listBox, bool restore = false)
         {
-            int index = listBox.SelectedIndex;
+            int index = -1;
+            if (restore) index = listBox.SelectedIndex;
             listBox.Items.Clear();
             foreach (string item in list)
             {
                 listBox.Items.Add(item);
             }
-            if (restore) listBox.SelectedIndex = index;
+            listBox.SelectedIndex = index;
         }
 
         /// <summary>

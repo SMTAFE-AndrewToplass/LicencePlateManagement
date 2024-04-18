@@ -361,10 +361,10 @@
             // listBoxMain
             // 
             listBoxMain.Dock = DockStyle.Fill;
-            listBoxMain.Font = new Font("Consolas", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            listBoxMain.Font = new Font("Consolas", 16F, FontStyle.Bold);
             listBoxMain.ForeColor = Color.RoyalBlue;
             listBoxMain.FormattingEnabled = true;
-            listBoxMain.ItemHeight = 22;
+            listBoxMain.ItemHeight = 24;
             listBoxMain.Location = new Point(6, 24);
             listBoxMain.Name = "listBoxMain";
             tableLayoutPanel1.SetRowSpan(listBoxMain, 3);
@@ -376,15 +376,16 @@
             // listBoxTagged
             // 
             listBoxTagged.Dock = DockStyle.Fill;
-            listBoxTagged.Font = new Font("Consolas", 14.25F, FontStyle.Bold);
+            listBoxTagged.Font = new Font("Consolas", 16F, FontStyle.Bold);
             listBoxTagged.ForeColor = Color.RoyalBlue;
             listBoxTagged.FormattingEnabled = true;
-            listBoxTagged.ItemHeight = 22;
+            listBoxTagged.ItemHeight = 24;
             listBoxTagged.Location = new Point(239, 24);
             listBoxTagged.Name = "listBoxTagged";
             tableLayoutPanel1.SetRowSpan(listBoxTagged, 3);
             listBoxTagged.Size = new Size(143, 229);
             listBoxTagged.TabIndex = 1;
+            listBoxTagged.SelectedIndexChanged += ListBoxTagged_SelectedIndexChanged;
             listBoxTagged.DoubleClick += ListBoxTagged_DoubleClick;
             // 
             // lblTag
