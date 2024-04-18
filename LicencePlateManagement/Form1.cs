@@ -35,26 +35,47 @@ namespace LicencePlateManagement
 
         private void BtnActionEnter_Click(object sender, EventArgs e)
         {
-            // TODO
+            // Check if text input is valid.
+            string licence = txtBoxAction.Text;
+            if (!IsInputValid(licence)) return;
+
+            // If licence plate is already inside the list then cancel.
+            if (AlreadyExistsInList(licencePlates, licence)) return;
+
+            // Add licence plate to list and update list box display.
+            licencePlates.Add(licence);
+            ShowList(licencePlates, listBoxMain);
         }
 
         private void BtnActionExit_Click(object sender, EventArgs e)
         {
+            // Check if text input is valid.
+            string licence = txtBoxAction.Text;
+            if (!IsInputValid(licence)) return;
             // TODO
         }
 
         private void BtnActionEdit_Click(object sender, EventArgs e)
         {
+            // Check if text input is valid.
+            string licence = txtBoxAction.Text;
+            if (!IsInputValid(licence)) return;
             // TODO
         }
 
         private void BtnActionSearchBinary_Click(object sender, EventArgs e)
         {
+            // Check if text input is valid.
+            string licence = txtBoxAction.Text;
+            if (!IsInputValid(licence)) return;
             // TODO
         }
 
         private void BtnActionSearchLinear_Click(object sender, EventArgs e)
         {
+            // Check if text input is valid.
+            string licence = txtBoxAction.Text;
+            if (!IsInputValid(licence)) return;
             // TODO
         }
 
@@ -64,6 +85,21 @@ namespace LicencePlateManagement
         }
 
         private void BtnTagRemove_Click(object sender, EventArgs e)
+        {
+            // TODO
+        }
+
+        private void ListBoxMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // TODO
+        }
+
+        private void ListBoxMain_DoubleClick(object sender, EventArgs e)
+        {
+            // TODO
+        }
+
+        private void ListBoxTagged_DoubleClick(object sender, EventArgs e)
         {
             // TODO
         }
@@ -126,7 +162,19 @@ namespace LicencePlateManagement
             taggedLicencePlates.Remove(licence);
         }
 
-
+        /// <summary>
+        /// Verifies that the user has entered a licence plate number into the textbox.
+        /// </summary>
+        /// <returns>True if the user has entered a licence plate correctly, false if not.</returns>
+        private bool IsInputValid(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                MessageBox.Show("You must enter a licence plate.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            return true;
+        }
 
 
 

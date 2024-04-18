@@ -361,42 +361,51 @@
             // listBoxMain
             // 
             listBoxMain.Dock = DockStyle.Fill;
+            listBoxMain.Font = new Font("Consolas", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            listBoxMain.ForeColor = Color.RoyalBlue;
             listBoxMain.FormattingEnabled = true;
-            listBoxMain.ItemHeight = 15;
+            listBoxMain.ItemHeight = 22;
             listBoxMain.Location = new Point(6, 24);
             listBoxMain.Name = "listBoxMain";
             tableLayoutPanel1.SetRowSpan(listBoxMain, 3);
             listBoxMain.Size = new Size(142, 229);
             listBoxMain.TabIndex = 0;
+            listBoxMain.SelectedIndexChanged += ListBoxMain_SelectedIndexChanged;
+            listBoxMain.DoubleClick += ListBoxMain_DoubleClick;
             // 
             // listBoxTagged
             // 
             listBoxTagged.Dock = DockStyle.Fill;
+            listBoxTagged.Font = new Font("Consolas", 14.25F, FontStyle.Bold);
+            listBoxTagged.ForeColor = Color.RoyalBlue;
             listBoxTagged.FormattingEnabled = true;
-            listBoxTagged.ItemHeight = 15;
+            listBoxTagged.ItemHeight = 22;
             listBoxTagged.Location = new Point(239, 24);
             listBoxTagged.Name = "listBoxTagged";
             tableLayoutPanel1.SetRowSpan(listBoxTagged, 3);
             listBoxTagged.Size = new Size(143, 229);
             listBoxTagged.TabIndex = 1;
+            listBoxTagged.DoubleClick += ListBoxTagged_DoubleClick;
             // 
             // lblTag
             // 
-            lblTag.Anchor = AnchorStyles.Bottom;
+            lblTag.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblTag.AutoSize = true;
-            lblTag.Location = new Point(168, 87);
+            lblTag.Location = new Point(154, 84);
+            lblTag.Margin = new Padding(3, 0, 3, 3);
             lblTag.Name = "lblTag";
-            lblTag.Size = new Size(50, 15);
+            lblTag.Size = new Size(79, 15);
             lblTag.TabIndex = 2;
             lblTag.Text = "Edit tag:";
+            lblTag.TextAlign = ContentAlignment.BottomCenter;
             // 
             // btnTagAdd
             // 
-            btnTagAdd.Anchor = AnchorStyles.None;
+            btnTagAdd.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             btnTagAdd.AutoSize = true;
-            btnTagAdd.Location = new Point(156, 105);
+            btnTagAdd.Location = new Point(154, 105);
             btnTagAdd.Name = "btnTagAdd";
-            btnTagAdd.Size = new Size(75, 25);
+            btnTagAdd.Size = new Size(79, 25);
             btnTagAdd.TabIndex = 3;
             btnTagAdd.Text = "Add >>";
             btnTagAdd.UseVisualStyleBackColor = true;
@@ -404,7 +413,7 @@
             // 
             // btnTagRemove
             // 
-            btnTagRemove.Anchor = AnchorStyles.Top;
+            btnTagRemove.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             btnTagRemove.AutoSize = true;
             btnTagRemove.Location = new Point(154, 136);
             btnTagRemove.Name = "btnTagRemove";
