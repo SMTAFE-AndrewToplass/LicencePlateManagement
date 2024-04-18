@@ -11,13 +11,66 @@ namespace LicencePlateManagement
             ResizeTableLayoutContent();
         }
 
+        #region Form events
+
         private void Form1_Resize(object sender, EventArgs e)
         {
             ResizeTableLayoutContent();
         }
 
+        private void BtnFileLoad_Click(object sender, EventArgs e)
+        {
+            // TODO
+        }
+
+        private void BtnFileSave_Click(object sender, EventArgs e)
+        {
+            // TODO
+        }
+
+        private void BtnFileReset_Click(object sender, EventArgs e)
+        {
+            // TODO
+        }
+
+        private void BtnActionEnter_Click(object sender, EventArgs e)
+        {
+            // TODO
+        }
+
+        private void BtnActionExit_Click(object sender, EventArgs e)
+        {
+            // TODO
+        }
+
+        private void BtnActionEdit_Click(object sender, EventArgs e)
+        {
+            // TODO
+        }
+
+        private void BtnActionSearchBinary_Click(object sender, EventArgs e)
+        {
+            // TODO
+        }
+
+        private void BtnActionSearchLinear_Click(object sender, EventArgs e)
+        {
+            // TODO
+        }
+
+        private void BtnTagAdd_Click(object sender, EventArgs e)
+        {
+            // TODO
+        }
+
+        private void BtnTagRemove_Click(object sender, EventArgs e)
+        {
+            // TODO
+        }
+        #endregion
+
         #region Utility functions
-        
+
         /// <summary>
         /// Adds all list items to a listbox.
         /// </summary>

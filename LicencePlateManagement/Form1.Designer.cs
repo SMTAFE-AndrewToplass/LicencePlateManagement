@@ -44,8 +44,8 @@
             txtBoxAction = new TextBox();
             btnActionEnter = new Button();
             btnActionExit = new Button();
-            btnSearchBinary = new Button();
-            btnSearchLinear = new Button();
+            btnActionSearchBinary = new Button();
+            btnActionSearchLinear = new Button();
             btnActionEdit = new Button();
             tableLayoutPanel1 = new TableLayoutPanel();
             listBoxMain = new ListBox();
@@ -174,11 +174,12 @@
             groupBoxFile.Controls.Add(flowLayoutFile);
             groupBoxFile.Dock = DockStyle.Fill;
             groupBoxFile.Location = new Point(6, 6);
+            groupBoxFile.Margin = new Padding(3, 3, 3, 12);
             groupBoxFile.Name = "groupBoxFile";
             groupBoxFile.Size = new Size(388, 51);
             groupBoxFile.TabIndex = 0;
             groupBoxFile.TabStop = false;
-            groupBoxFile.Text = "File actions:";
+            groupBoxFile.Text = "File actions";
             // 
             // flowLayoutFile
             // 
@@ -202,6 +203,7 @@
             btnFileLoad.TabIndex = 0;
             btnFileLoad.Text = "Load";
             btnFileLoad.UseVisualStyleBackColor = true;
+            btnFileLoad.Click += BtnFileLoad_Click;
             // 
             // btnFileSave
             // 
@@ -211,6 +213,7 @@
             btnFileSave.TabIndex = 1;
             btnFileSave.Text = "Save";
             btnFileSave.UseVisualStyleBackColor = true;
+            btnFileSave.Click += BtnFileSave_Click;
             // 
             // btnFileReset
             // 
@@ -220,6 +223,7 @@
             btnFileReset.TabIndex = 2;
             btnFileReset.Text = "Reset";
             btnFileReset.UseVisualStyleBackColor = true;
+            btnFileReset.Click += BtnFileReset_Click;
             // 
             // groupBoxActions
             // 
@@ -227,12 +231,13 @@
             groupBoxActions.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             groupBoxActions.Controls.Add(tableLayoutActions);
             groupBoxActions.Dock = DockStyle.Fill;
-            groupBoxActions.Location = new Point(6, 63);
+            groupBoxActions.Location = new Point(6, 72);
+            groupBoxActions.Margin = new Padding(3, 3, 3, 12);
             groupBoxActions.Name = "groupBoxActions";
             groupBoxActions.Size = new Size(388, 109);
             groupBoxActions.TabIndex = 1;
             groupBoxActions.TabStop = false;
-            groupBoxActions.Text = "Licence plate actions:";
+            groupBoxActions.Text = "Licence plate actions";
             // 
             // tableLayoutActions
             // 
@@ -247,8 +252,8 @@
             tableLayoutActions.Controls.Add(txtBoxAction, 0, 0);
             tableLayoutActions.Controls.Add(btnActionEnter, 0, 1);
             tableLayoutActions.Controls.Add(btnActionExit, 1, 1);
-            tableLayoutActions.Controls.Add(btnSearchBinary, 0, 2);
-            tableLayoutActions.Controls.Add(btnSearchLinear, 3, 2);
+            tableLayoutActions.Controls.Add(btnActionSearchBinary, 0, 2);
+            tableLayoutActions.Controls.Add(btnActionSearchLinear, 3, 2);
             tableLayoutActions.Controls.Add(btnActionEdit, 4, 1);
             tableLayoutActions.Dock = DockStyle.Fill;
             tableLayoutActions.Location = new Point(3, 19);
@@ -279,6 +284,7 @@
             btnActionEnter.TabIndex = 1;
             btnActionEnter.Text = "Enter";
             btnActionEnter.UseVisualStyleBackColor = true;
+            btnActionEnter.Click += BtnActionEnter_Click;
             // 
             // btnActionExit
             // 
@@ -290,28 +296,31 @@
             btnActionExit.TabIndex = 2;
             btnActionExit.Text = "Exit";
             btnActionExit.UseVisualStyleBackColor = true;
+            btnActionExit.Click += BtnActionExit_Click;
             // 
-            // btnSearchBinary
+            // btnActionSearchBinary
             // 
-            btnSearchBinary.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            tableLayoutActions.SetColumnSpan(btnSearchBinary, 2);
-            btnSearchBinary.Location = new Point(3, 61);
-            btnSearchBinary.Name = "btnSearchBinary";
-            btnSearchBinary.Size = new Size(184, 23);
-            btnSearchBinary.TabIndex = 4;
-            btnSearchBinary.Text = "Binary search";
-            btnSearchBinary.UseVisualStyleBackColor = true;
+            btnActionSearchBinary.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            tableLayoutActions.SetColumnSpan(btnActionSearchBinary, 2);
+            btnActionSearchBinary.Location = new Point(3, 61);
+            btnActionSearchBinary.Name = "btnActionSearchBinary";
+            btnActionSearchBinary.Size = new Size(184, 23);
+            btnActionSearchBinary.TabIndex = 4;
+            btnActionSearchBinary.Text = "Binary search";
+            btnActionSearchBinary.UseVisualStyleBackColor = true;
+            btnActionSearchBinary.Click += BtnActionSearchBinary_Click;
             // 
-            // btnSearchLinear
+            // btnActionSearchLinear
             // 
-            btnSearchLinear.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            tableLayoutActions.SetColumnSpan(btnSearchLinear, 2);
-            btnSearchLinear.Location = new Point(193, 61);
-            btnSearchLinear.Name = "btnSearchLinear";
-            btnSearchLinear.Size = new Size(186, 23);
-            btnSearchLinear.TabIndex = 5;
-            btnSearchLinear.Text = "Linear search";
-            btnSearchLinear.UseVisualStyleBackColor = true;
+            btnActionSearchLinear.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            tableLayoutActions.SetColumnSpan(btnActionSearchLinear, 2);
+            btnActionSearchLinear.Location = new Point(193, 61);
+            btnActionSearchLinear.Name = "btnActionSearchLinear";
+            btnActionSearchLinear.Size = new Size(186, 23);
+            btnActionSearchLinear.TabIndex = 5;
+            btnActionSearchLinear.Text = "Linear search";
+            btnActionSearchLinear.UseVisualStyleBackColor = true;
+            btnActionSearchLinear.Click += BtnActionSearchLinear_Click;
             // 
             // btnActionEdit
             // 
@@ -322,6 +331,7 @@
             btnActionEdit.TabIndex = 3;
             btnActionEdit.Text = "Edit";
             btnActionEdit.UseVisualStyleBackColor = true;
+            btnActionEdit.Click += BtnActionEdit_Click;
             // 
             // tableLayoutPanel1
             // 
@@ -337,7 +347,7 @@
             tableLayoutPanel1.Controls.Add(lblMainListBox, 0, 0);
             tableLayoutPanel1.Controls.Add(lblTaggedListBox, 2, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(6, 178);
+            tableLayoutPanel1.Location = new Point(6, 196);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.Padding = new Padding(3);
             tableLayoutPanel1.RowCount = 4;
@@ -345,7 +355,7 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 60F));
-            tableLayoutPanel1.Size = new Size(388, 277);
+            tableLayoutPanel1.Size = new Size(388, 259);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // listBoxMain
@@ -353,10 +363,10 @@
             listBoxMain.Dock = DockStyle.Fill;
             listBoxMain.FormattingEnabled = true;
             listBoxMain.ItemHeight = 15;
-            listBoxMain.Location = new Point(6, 21);
+            listBoxMain.Location = new Point(6, 24);
             listBoxMain.Name = "listBoxMain";
             tableLayoutPanel1.SetRowSpan(listBoxMain, 3);
-            listBoxMain.Size = new Size(142, 250);
+            listBoxMain.Size = new Size(142, 229);
             listBoxMain.TabIndex = 0;
             // 
             // listBoxTagged
@@ -364,17 +374,17 @@
             listBoxTagged.Dock = DockStyle.Fill;
             listBoxTagged.FormattingEnabled = true;
             listBoxTagged.ItemHeight = 15;
-            listBoxTagged.Location = new Point(239, 21);
+            listBoxTagged.Location = new Point(239, 24);
             listBoxTagged.Name = "listBoxTagged";
             tableLayoutPanel1.SetRowSpan(listBoxTagged, 3);
-            listBoxTagged.Size = new Size(143, 250);
+            listBoxTagged.Size = new Size(143, 229);
             listBoxTagged.TabIndex = 1;
             // 
             // lblTag
             // 
             lblTag.Anchor = AnchorStyles.Bottom;
             lblTag.AutoSize = true;
-            lblTag.Location = new Point(168, 93);
+            lblTag.Location = new Point(168, 87);
             lblTag.Name = "lblTag";
             lblTag.Size = new Size(50, 15);
             lblTag.TabIndex = 2;
@@ -384,28 +394,31 @@
             // 
             btnTagAdd.Anchor = AnchorStyles.None;
             btnTagAdd.AutoSize = true;
-            btnTagAdd.Location = new Point(156, 111);
+            btnTagAdd.Location = new Point(156, 105);
             btnTagAdd.Name = "btnTagAdd";
             btnTagAdd.Size = new Size(75, 25);
             btnTagAdd.TabIndex = 3;
             btnTagAdd.Text = "Add >>";
             btnTagAdd.UseVisualStyleBackColor = true;
+            btnTagAdd.Click += BtnTagAdd_Click;
             // 
             // btnTagRemove
             // 
             btnTagRemove.Anchor = AnchorStyles.Top;
             btnTagRemove.AutoSize = true;
-            btnTagRemove.Location = new Point(154, 142);
+            btnTagRemove.Location = new Point(154, 136);
             btnTagRemove.Name = "btnTagRemove";
             btnTagRemove.Size = new Size(79, 25);
             btnTagRemove.TabIndex = 4;
             btnTagRemove.Text = "Remove <<";
             btnTagRemove.UseVisualStyleBackColor = true;
+            btnTagRemove.Click += BtnTagRemove_Click;
             // 
             // lblMainListBox
             // 
             lblMainListBox.AutoSize = true;
             lblMainListBox.Location = new Point(6, 3);
+            lblMainListBox.Margin = new Padding(3, 0, 3, 3);
             lblMainListBox.Name = "lblMainListBox";
             lblMainListBox.Size = new Size(84, 15);
             lblMainListBox.TabIndex = 5;
@@ -415,6 +428,7 @@
             // 
             lblTaggedListBox.AutoSize = true;
             lblTaggedListBox.Location = new Point(239, 3);
+            lblTaggedListBox.Margin = new Padding(3, 0, 3, 3);
             lblTaggedListBox.Name = "lblTaggedListBox";
             lblTaggedListBox.Size = new Size(122, 15);
             lblTaggedListBox.TabIndex = 6;
@@ -426,7 +440,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(484, 561);
             Controls.Add(tableLayoutMain);
-            MinimumSize = new Size(400, 400);
+            MinimumSize = new Size(400, 500);
             Name = "Form1";
             Text = "Licence Plate Management";
             Resize += Form1_Resize;
@@ -467,8 +481,8 @@
         private TableLayoutPanel tableLayoutActions;
         private TextBox txtBoxAction;
         private Button btnActionExit;
-        private Button btnSearchBinary;
-        private Button btnSearchLinear;
+        private Button btnActionSearchBinary;
+        private Button btnActionSearchLinear;
         private Button btnActionEdit;
         private TableLayoutPanel tableLayoutPanel1;
         private ListBox listBoxMain;
