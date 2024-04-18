@@ -185,6 +185,8 @@ namespace LicencePlateManagement
         /// <param name="restore">Restore previous selected item index.</param>
         private void ShowList(List<string> list, ListBox listBox, bool restore = false)
         {
+            // Breaks the restore selected item functionality.
+            list.Sort();
             int index = -1;
             if (restore) index = listBox.SelectedIndex;
             listBox.Items.Clear();
