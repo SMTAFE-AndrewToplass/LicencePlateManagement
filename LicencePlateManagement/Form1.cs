@@ -194,8 +194,8 @@ namespace LicencePlateManagement
             {
                 // If it does exist, then display a message box confirming
                 // whether the user wants to delete it, or cancel the edit.
-                var mb = MessageBox.Show($"Item {licence} already exists in list, do you want to remove it or cancel.", "Item already exists", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (mb == DialogResult.No)
+                var msg = MessageBox.Show($"Item {licence} already exists in list, do you want to remove it or cancel.", "Item already exists", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (msg == DialogResult.No)
                 {
                     return;
                 }
@@ -219,7 +219,22 @@ namespace LicencePlateManagement
             // Check if text input is valid.
             string licence = txtBoxAction.Text.ToUpper();
             if (!IsInputValid(licence)) return;
-            // TODO
+
+            // Perform the binary search on the list.
+            int idx = licencePlates.BinarySearch(licence);
+            if (idx >= 0)
+            {
+                listBoxMain.SelectedIndex = idx;
+
+                // Update status label.
+                toolStripStatusLabel.Text = $"Licence plate: {licence} found at index: {idx}";
+            }
+            else
+            {
+                MessageBox.Show("Item not found in list.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Set focus back to the text box.
+                txtBoxAction.Focus();
+            }
         }
 
         private void BtnActionSearchLinear_Click(object sender, EventArgs e)
@@ -227,12 +242,28 @@ namespace LicencePlateManagement
             // Check if text input is valid.
             string licence = txtBoxAction.Text.ToUpper();
             if (!IsInputValid(licence)) return;
-            // TODO
+
+            // Perform the linear search on the list.
+            int idx = LinearSearch(licencePlates, licence);
+            if (idx >= 0)
+            {
+                listBoxMain.SelectedIndex = idx;
+
+                // Update status label.
+                toolStripStatusLabel.Text = $"Licence plate: {licence} found at index: {idx}";
+            }
+            else
+            {
+                MessageBox.Show("Item not found in list.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Set focus back to the text box.
+                txtBoxAction.Focus();
+            }
         }
 
         private void BtnTagAdd_Click(object sender, EventArgs e)
         {
             int i = listBoxMain.SelectedIndex;
+
             // If there is no selected item inside the listbox, then cancel.
             if (i < 0) return;
 
@@ -287,12 +318,19 @@ namespace LicencePlateManagement
 
         private void ListBoxMain_DoubleClick(object sender, EventArgs e)
         {
-            if (listBoxMain.SelectedIndex < 0) return;
             int i = listBoxMain.SelectedIndex;
+            
+            // If not item is selected, return.
+            if (i < 0) return;
 
+            // Confirmation dialog for item deletion.
             DialogResult msg = MessageBox.Show($"Do you want to remove '{licencePlates[i]}' from the list.", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (msg == DialogResult.Yes)
             {
+                // Update status label.
+                toolStripStatusLabel.Text = $"Licence plate: {licencePlates[i]} removed.";
+
+                // Remove List item at same index as selected ListBox item.
                 licencePlates.RemoveAt(i);
                 ShowList(licencePlates, listBoxMain);
             }
@@ -380,6 +418,21 @@ namespace LicencePlateManagement
                 return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// Performs a linear search on a list.
+        /// </summary>
+        /// <param name="list">List to search through.</param>
+        /// <param name="target">Item to find inside list.</param>
+        /// <returns>The index of the target item inside list, if item is not found then -1.</returns>
+        private int LinearSearch(List<string> list, string target)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i] == target) return i;
+            }
+            return -1;
         }
 
         private void ResizeTableLayoutContent()
