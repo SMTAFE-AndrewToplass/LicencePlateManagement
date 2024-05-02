@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Text;
 using System.Windows.Forms;
 
@@ -46,11 +47,16 @@ namespace LicencePlateManagement
                     string? s = String.Empty;
                     while ((s = sr.ReadLine()) is not null)
                     {
+                        string licence = s.ToUpper();
+
                         // Skip line if empty.
-                        if (s == String.Empty) continue;
+                        if (licence == String.Empty) continue;
+
+                        // If licence plate is already inside the list then cancel.
+                        if (AlreadyExistsInList(licencePlates, licence)) continue;
 
                         // Add licence plate from the file to the List.
-                        licencePlates.Add(s.ToUpper());
+                        licencePlates.Add(licence);
                     }
                 }
                 ShowList(licencePlates, listBoxMain);
@@ -96,8 +102,10 @@ namespace LicencePlateManagement
                         File.Delete(path);
                     }
 
+                    // Create string from licence plate data to save to file.
                     string fileContents = string.Join("\n", licencePlates);
-                    // Create the file to save.
+
+                    // Create the file to save and write the data.
                     using (FileStream fs = File.Create(path))
                     {
                         byte[] contents = new UTF8Encoding().GetBytes(fileContents);
@@ -132,6 +140,9 @@ namespace LicencePlateManagement
             // Add licence plate to list and update list box display.
             licencePlates.Add(licence);
             ShowList(licencePlates, listBoxMain);
+
+            // Update status label.
+            toolStripStatusLabel.Text = $"Licence plate: {licence} added.";
         }
 
         private void BtnActionExit_Click(object sender, EventArgs e)
@@ -153,6 +164,9 @@ namespace LicencePlateManagement
             // If item is inside list, remove it and update listbox displays.
             licencePlates.Remove(licence);
             ShowList(licencePlates, listBoxMain);
+
+            // Update status label.
+            toolStripStatusLabel.Text = $"Licence plate: {licence} removed.";
         }
 
         private void BtnActionEdit_Click(object sender, EventArgs e)
@@ -172,9 +186,32 @@ namespace LicencePlateManagement
                 return;
             }
 
-            // Replace licence plate with editted version.
-            licencePlates[i] = licence;
+            // Get old item for use in status label.
+            string oldItem = licencePlates[i];
+
+            // Check if new item already exists inside list.
+            if (AlreadyExistsInList(licencePlates, licence) && licence != oldItem)
+            {
+                // If it does exist, then display a message box confirming
+                // whether the user wants to delete it, or cancel the edit.
+                var mb = MessageBox.Show($"Item {licence} already exists in list, do you want to remove it or cancel.", "Item already exists", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (mb == DialogResult.No)
+                {
+                    return;
+                }
+                // Remove old item as the new item is a duplicate.
+                licencePlates.Remove(oldItem);
+            }
+            else
+            {
+                // Replace licence plate with edited version.
+                licencePlates[i] = licence;
+            }
+
             ShowList(licencePlates, listBoxMain, true);
+
+            // Update status label.
+            toolStripStatusLabel.Text = $"Licence plate: {oldItem} updated to {licence}.";
         }
 
         private void BtnActionSearchBinary_Click(object sender, EventArgs e)
@@ -195,28 +232,41 @@ namespace LicencePlateManagement
 
         private void BtnTagAdd_Click(object sender, EventArgs e)
         {
+            int i = listBoxMain.SelectedIndex;
             // If there is no selected item inside the listbox, then cancel.
-            if (listBoxMain.SelectedIndex < 0) return;
+            if (i < 0) return;
+
+            string licence = licencePlates[i];
 
             // Move the selected licence plate to the tagged list.
-            TagLicence(listBoxMain.SelectedIndex);
+            TagLicence(i);
 
             // Update the list boxes.
             ShowList(licencePlates, listBoxMain, false);
             ShowList(taggedLicencePlates, listBoxTagged, true);
+
+            // Update status label.
+            toolStripStatusLabel.Text = $"Licence plate: {licence} tagged.";
         }
 
         private void BtnTagRemove_Click(object sender, EventArgs e)
         {
+            int i = listBoxTagged.SelectedIndex;
+
             // If there is no selected item inside the listbox, then cancel.
-            if (listBoxTagged.SelectedIndex < 0) return;
+            if (i < 0) return;
+
+            string licence = taggedLicencePlates[i];
 
             // Move the selected licence plate to the tagged list.
-            UntagLicence(listBoxTagged.SelectedIndex);
+            UntagLicence(i);
 
             // Update the list boxes.
             ShowList(licencePlates, listBoxMain, true);
             ShowList(taggedLicencePlates, listBoxTagged, false);
+
+            // Update status label.
+            toolStripStatusLabel.Text = $"Licence plate: {licence} untagged.";
         }
 
         private void ListBoxMain_SelectedIndexChanged(object sender, EventArgs e)
