@@ -65,55 +65,12 @@ namespace LicencePlateManagement
 
         private void BtnFileSave_Click(object sender, EventArgs e)
         {
-            string startPath = Application.StartupPath;
-            // Get existing files to automatically set default name of new file.
-            List<int> fileNumbers = [];
-            foreach ( var file in Directory.GetFiles(startPath, "day_*.txt"))
-            {
-                // Extract the day number from each file name.
-                string fileNumber = Path.GetFileName(file).Replace("day_", "").Replace(".txt", "");
-                fileNumbers.Add(int.Parse(fileNumber));
-            }
-            // Set new number to largest + 1, or 1 if no other files exist.
-            int num = ((fileNumbers.Count > 0) ? fileNumbers.Max() : 0) + 1;
-            // Add zeros to start of number so it at least two digits.
-            string newFileName = $"day_{num:00}";
+            SaveData();
+        }
 
-            SaveFileDialog saveFileDialog = new()
-            {
-                InitialDirectory = startPath,
-                FileName = newFileName,
-                Filter = "txt file|*.txt",
-                DefaultExt = "txt",
-            };
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                // Update status label with file saved information.
-                toolStripStatusLabel.Text = $"File saved: {saveFileDialog.FileName}";
-
-                string path = saveFileDialog.FileName;
-
-                if (!path.Equals(""))
-                {
-                    // If file already exists, then delete it.
-                    if (File.Exists(path))
-                    {
-                        File.Delete(path);
-                    }
-
-                    // Create string from licence plate data to save to file.
-                    string fileContents = string.Join("\n", licencePlates);
-
-                    // Create the file to save and write the data.
-                    using (FileStream fs = File.Create(path))
-                    {
-                        byte[] contents = new UTF8Encoding().GetBytes(fileContents);
-                        fs.Write(contents, 0, contents.Length);
-                    }
-                }
-
-            }
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveData();
         }
 
         private void BtnFileReset_Click(object sender, EventArgs e)
@@ -319,7 +276,7 @@ namespace LicencePlateManagement
         private void ListBoxMain_DoubleClick(object sender, EventArgs e)
         {
             int i = listBoxMain.SelectedIndex;
-            
+
             // If not item is selected, return.
             if (i < 0) return;
 
@@ -433,6 +390,61 @@ namespace LicencePlateManagement
                 if (list[i] == target) return i;
             }
             return -1;
+        }
+
+        /// <summary>
+        /// Saves the data from the main List and prompts user for save location.
+        /// </summary>
+        private void SaveData()
+        {
+            string startPath = Application.StartupPath;
+            // Get existing files to automatically set default name of new file.
+            List<int> fileNumbers = [];
+            foreach (var file in Directory.GetFiles(startPath, "day_*.txt"))
+            {
+                // Extract the day number from each file name.
+                string fileNumber = Path.GetFileName(file).Replace("day_", "").Replace(".txt", "");
+                fileNumbers.Add(int.Parse(fileNumber));
+            }
+            // Set new number to largest + 1, or 1 if no other files exist.
+            int num = ((fileNumbers.Count > 0) ? fileNumbers.Max() : 0) + 1;
+            // Add zeros to start of number so it at least two digits.
+            string newFileName = $"day_{num:00}";
+
+            SaveFileDialog saveFileDialog = new()
+            {
+                InitialDirectory = startPath,
+                FileName = newFileName,
+                Filter = "txt file|*.txt",
+                DefaultExt = "txt",
+            };
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Update status label with file saved information.
+                toolStripStatusLabel.Text = $"File saved: {saveFileDialog.FileName}";
+
+                string path = saveFileDialog.FileName;
+
+                if (!path.Equals(""))
+                {
+                    // If file already exists, then delete it.
+                    if (File.Exists(path))
+                    {
+                        File.Delete(path);
+                    }
+
+                    // Create string from licence plate data to save to file.
+                    string fileContents = string.Join("\n", licencePlates);
+
+                    // Create the file to save and write the data.
+                    using (FileStream fs = File.Create(path))
+                    {
+                        byte[] contents = new UTF8Encoding().GetBytes(fileContents);
+                        fs.Write(contents, 0, contents.Length);
+                    }
+                }
+            }
         }
 
         private void ResizeTableLayoutContent()

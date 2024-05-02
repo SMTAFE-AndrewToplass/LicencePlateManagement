@@ -463,7 +463,7 @@
             // toolStripStatusLabel
             // 
             toolStripStatusLabel.Name = "toolStripStatusLabel";
-            toolStripStatusLabel.Size = new Size(438, 15);
+            toolStripStatusLabel.Size = new Size(469, 15);
             toolStripStatusLabel.Spring = true;
             toolStripStatusLabel.Text = "Ready";
             toolStripStatusLabel.TextAlign = ContentAlignment.MiddleLeft;
@@ -477,6 +477,7 @@
             MinimumSize = new Size(400, 500);
             Name = "Form1";
             Text = "Licence Plate Management";
+            FormClosing += Form1_FormClosing;
             Resize += Form1_Resize;
             tableLayoutMain.ResumeLayout(false);
             tableLayoutMain.PerformLayout();
