@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             tableLayoutMain = new TableLayoutPanel();
             tableLayoutHeader = new TableLayoutPanel();
             labelCompany = new Label();
@@ -57,6 +58,7 @@
             lblTaggedListBox = new Label();
             statusStrip = new StatusStrip();
             toolStripStatusLabel = new ToolStripStatusLabel();
+            toolTip = new ToolTip(components);
             tableLayoutMain.SuspendLayout();
             tableLayoutHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).BeginInit();
@@ -208,6 +210,7 @@
             btnFileLoad.Size = new Size(75, 23);
             btnFileLoad.TabIndex = 0;
             btnFileLoad.Text = "Load";
+            toolTip.SetToolTip(btnFileLoad, "Open a file and load its data.");
             btnFileLoad.UseVisualStyleBackColor = true;
             btnFileLoad.Click += BtnFileLoad_Click;
             // 
@@ -218,6 +221,7 @@
             btnFileSave.Size = new Size(75, 23);
             btnFileSave.TabIndex = 1;
             btnFileSave.Text = "Save";
+            toolTip.SetToolTip(btnFileSave, "Save data into text file.");
             btnFileSave.UseVisualStyleBackColor = true;
             btnFileSave.Click += BtnFileSave_Click;
             // 
@@ -228,6 +232,7 @@
             btnFileReset.Size = new Size(75, 23);
             btnFileReset.TabIndex = 2;
             btnFileReset.Text = "Reset";
+            toolTip.SetToolTip(btnFileReset, "Reset all data in program.");
             btnFileReset.UseVisualStyleBackColor = true;
             btnFileReset.Click += BtnFileReset_Click;
             // 
@@ -280,6 +285,7 @@
             txtBoxAction.PlaceholderText = "Enter licence plate";
             txtBoxAction.Size = new Size(376, 23);
             txtBoxAction.TabIndex = 0;
+            toolTip.SetToolTip(txtBoxAction, "Enter a licence plate number and select one of the buttons\r\nbelow to perform an action.");
             // 
             // btnActionEnter
             // 
@@ -289,6 +295,7 @@
             btnActionEnter.Size = new Size(121, 23);
             btnActionEnter.TabIndex = 1;
             btnActionEnter.Text = "Enter";
+            toolTip.SetToolTip(btnActionEnter, "Adds item inside text box into the main licence plates list.");
             btnActionEnter.UseVisualStyleBackColor = true;
             btnActionEnter.Click += BtnActionEnter_Click;
             // 
@@ -301,6 +308,7 @@
             btnActionExit.Size = new Size(120, 23);
             btnActionExit.TabIndex = 2;
             btnActionExit.Text = "Exit";
+            toolTip.SetToolTip(btnActionExit, "Removes item inside textbox from main licence plate list.");
             btnActionExit.UseVisualStyleBackColor = true;
             btnActionExit.Click += BtnActionExit_Click;
             // 
@@ -313,6 +321,7 @@
             btnActionSearchBinary.Size = new Size(184, 23);
             btnActionSearchBinary.TabIndex = 4;
             btnActionSearchBinary.Text = "Binary search";
+            toolTip.SetToolTip(btnActionSearchBinary, "Performs a binary search inside the main list, searching for the value\r\ninside the textbox.");
             btnActionSearchBinary.UseVisualStyleBackColor = true;
             btnActionSearchBinary.Click += BtnActionSearchBinary_Click;
             // 
@@ -325,6 +334,7 @@
             btnActionSearchLinear.Size = new Size(186, 23);
             btnActionSearchLinear.TabIndex = 5;
             btnActionSearchLinear.Text = "Linear search";
+            toolTip.SetToolTip(btnActionSearchLinear, "Performs a linear search inside the main list, searching for the value\r\ninside the textbox.");
             btnActionSearchLinear.UseVisualStyleBackColor = true;
             btnActionSearchLinear.Click += BtnActionSearchLinear_Click;
             // 
@@ -336,6 +346,7 @@
             btnActionEdit.Size = new Size(123, 23);
             btnActionEdit.TabIndex = 3;
             btnActionEdit.Text = "Edit";
+            toolTip.SetToolTip(btnActionEdit, "Edit an existing item from the main licence plate list.\r\nApplies edit from textbox into the selected item.");
             btnActionEdit.UseVisualStyleBackColor = true;
             btnActionEdit.Click += BtnActionEdit_Click;
             // 
@@ -376,6 +387,7 @@
             tableLayoutPanel1.SetRowSpan(listBoxMain, 3);
             listBoxMain.Size = new Size(142, 209);
             listBoxMain.TabIndex = 0;
+            toolTip.SetToolTip(listBoxMain, "Main licence plate list, double-click an item to remove it.");
             listBoxMain.SelectedIndexChanged += ListBoxMain_SelectedIndexChanged;
             listBoxMain.DoubleClick += ListBoxMain_DoubleClick;
             // 
@@ -391,7 +403,7 @@
             tableLayoutPanel1.SetRowSpan(listBoxTagged, 3);
             listBoxTagged.Size = new Size(143, 209);
             listBoxTagged.TabIndex = 1;
-            listBoxTagged.SelectedIndexChanged += ListBoxTagged_SelectedIndexChanged;
+            toolTip.SetToolTip(listBoxTagged, "Tagged licence plate list, double-click an item to untag it.");
             listBoxTagged.DoubleClick += ListBoxTagged_DoubleClick;
             // 
             // lblTag
@@ -415,6 +427,7 @@
             btnTagAdd.Size = new Size(79, 25);
             btnTagAdd.TabIndex = 3;
             btnTagAdd.Text = "Add >>";
+            toolTip.SetToolTip(btnTagAdd, "Move selected licence plate into the tagged list.");
             btnTagAdd.UseVisualStyleBackColor = true;
             btnTagAdd.Click += BtnTagAdd_Click;
             // 
@@ -427,6 +440,7 @@
             btnTagRemove.Size = new Size(79, 25);
             btnTagRemove.TabIndex = 4;
             btnTagRemove.Text = "Remove <<";
+            toolTip.SetToolTip(btnTagRemove, "Move the selected tagged licence plate back into the main list.");
             btnTagRemove.UseVisualStyleBackColor = true;
             btnTagRemove.Click += BtnTagRemove_Click;
             // 
@@ -531,5 +545,6 @@
         private Label lblTaggedListBox;
         private StatusStrip statusStrip;
         private ToolStripStatusLabel toolStripStatusLabel;
+        private ToolTip toolTip;
     }
 }

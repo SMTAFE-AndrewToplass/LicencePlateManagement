@@ -268,11 +268,6 @@ namespace LicencePlateManagement
             txtBoxAction.Text = listBoxMain.Items[i].ToString();
         }
 
-        private void ListBoxTagged_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // TODO
-        }
-
         private void ListBoxMain_DoubleClick(object sender, EventArgs e)
         {
             int i = listBoxMain.SelectedIndex;
@@ -299,7 +294,22 @@ namespace LicencePlateManagement
 
         private void ListBoxTagged_DoubleClick(object sender, EventArgs e)
         {
-            // TODO
+            int i = listBoxTagged.SelectedIndex;
+
+            // If not item is selected, return.
+            if (i < 0) return;
+
+            string licence = taggedLicencePlates[i];
+
+            // Move the selected licence plate to the tagged list.
+            UntagLicence(i);
+
+            // Update the list boxes.
+            ShowList(licencePlates, listBoxMain, true);
+            ShowList(taggedLicencePlates, listBoxTagged, false);
+
+            // Update status label.
+            toolStripStatusLabel.Text = $"Licence plate: {licence} untagged.";
         }
         #endregion
 
