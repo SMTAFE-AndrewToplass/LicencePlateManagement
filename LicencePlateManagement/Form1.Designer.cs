@@ -55,6 +55,8 @@
             btnTagRemove = new Button();
             lblMainListBox = new Label();
             lblTaggedListBox = new Label();
+            statusStrip = new StatusStrip();
+            toolStripStatusLabel = new ToolStripStatusLabel();
             tableLayoutMain.SuspendLayout();
             tableLayoutHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxLogo).BeginInit();
@@ -64,23 +66,26 @@
             groupBoxActions.SuspendLayout();
             tableLayoutActions.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
+            statusStrip.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutMain
             // 
             tableLayoutMain.ColumnCount = 3;
-            tableLayoutMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.9999962F));
             tableLayoutMain.ColumnStyles.Add(new ColumnStyle());
             tableLayoutMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.0000076F));
             tableLayoutMain.Controls.Add(tableLayoutHeader, 0, 0);
             tableLayoutMain.Controls.Add(tableLayoutContent, 1, 1);
+            tableLayoutMain.Controls.Add(statusStrip, 0, 2);
             tableLayoutMain.Dock = DockStyle.Fill;
             tableLayoutMain.Location = new Point(0, 0);
             tableLayoutMain.Margin = new Padding(0);
             tableLayoutMain.Name = "tableLayoutMain";
-            tableLayoutMain.RowCount = 2;
+            tableLayoutMain.RowCount = 3;
             tableLayoutMain.RowStyles.Add(new RowStyle());
             tableLayoutMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutMain.Size = new Size(484, 561);
             tableLayoutMain.TabIndex = 1;
             // 
@@ -165,7 +170,8 @@
             tableLayoutContent.RowStyles.Add(new RowStyle());
             tableLayoutContent.RowStyles.Add(new RowStyle());
             tableLayoutContent.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutContent.Size = new Size(400, 461);
+            tableLayoutContent.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutContent.Size = new Size(400, 441);
             tableLayoutContent.TabIndex = 2;
             // 
             // groupBoxFile
@@ -355,7 +361,7 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 60F));
-            tableLayoutPanel1.Size = new Size(388, 259);
+            tableLayoutPanel1.Size = new Size(388, 239);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // listBoxMain
@@ -368,7 +374,7 @@
             listBoxMain.Location = new Point(6, 24);
             listBoxMain.Name = "listBoxMain";
             tableLayoutPanel1.SetRowSpan(listBoxMain, 3);
-            listBoxMain.Size = new Size(142, 229);
+            listBoxMain.Size = new Size(142, 209);
             listBoxMain.TabIndex = 0;
             listBoxMain.SelectedIndexChanged += ListBoxMain_SelectedIndexChanged;
             listBoxMain.DoubleClick += ListBoxMain_DoubleClick;
@@ -383,7 +389,7 @@
             listBoxTagged.Location = new Point(239, 24);
             listBoxTagged.Name = "listBoxTagged";
             tableLayoutPanel1.SetRowSpan(listBoxTagged, 3);
-            listBoxTagged.Size = new Size(143, 229);
+            listBoxTagged.Size = new Size(143, 209);
             listBoxTagged.TabIndex = 1;
             listBoxTagged.SelectedIndexChanged += ListBoxTagged_SelectedIndexChanged;
             listBoxTagged.DoubleClick += ListBoxTagged_DoubleClick;
@@ -392,7 +398,7 @@
             // 
             lblTag.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblTag.AutoSize = true;
-            lblTag.Location = new Point(154, 84);
+            lblTag.Location = new Point(154, 76);
             lblTag.Margin = new Padding(3, 0, 3, 3);
             lblTag.Name = "lblTag";
             lblTag.Size = new Size(79, 15);
@@ -404,7 +410,7 @@
             // 
             btnTagAdd.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             btnTagAdd.AutoSize = true;
-            btnTagAdd.Location = new Point(154, 105);
+            btnTagAdd.Location = new Point(154, 97);
             btnTagAdd.Name = "btnTagAdd";
             btnTagAdd.Size = new Size(79, 25);
             btnTagAdd.TabIndex = 3;
@@ -416,7 +422,7 @@
             // 
             btnTagRemove.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             btnTagRemove.AutoSize = true;
-            btnTagRemove.Location = new Point(154, 136);
+            btnTagRemove.Location = new Point(154, 128);
             btnTagRemove.Name = "btnTagRemove";
             btnTagRemove.Size = new Size(79, 25);
             btnTagRemove.TabIndex = 4;
@@ -444,6 +450,24 @@
             lblTaggedListBox.TabIndex = 6;
             lblTaggedListBox.Text = "Tagged licence plates:";
             // 
+            // statusStrip
+            // 
+            tableLayoutMain.SetColumnSpan(statusStrip, 3);
+            statusStrip.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel });
+            statusStrip.Location = new Point(0, 541);
+            statusStrip.Name = "statusStrip";
+            statusStrip.Size = new Size(484, 20);
+            statusStrip.TabIndex = 3;
+            statusStrip.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel
+            // 
+            toolStripStatusLabel.Name = "toolStripStatusLabel";
+            toolStripStatusLabel.Size = new Size(438, 15);
+            toolStripStatusLabel.Spring = true;
+            toolStripStatusLabel.Text = "Ready";
+            toolStripStatusLabel.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -470,6 +494,8 @@
             tableLayoutActions.PerformLayout();
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
+            statusStrip.ResumeLayout(false);
+            statusStrip.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -502,5 +528,7 @@
         private Button btnTagRemove;
         private Label lblMainListBox;
         private Label lblTaggedListBox;
+        private StatusStrip statusStrip;
+        private ToolStripStatusLabel toolStripStatusLabel;
     }
 }

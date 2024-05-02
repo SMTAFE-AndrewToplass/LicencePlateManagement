@@ -1,3 +1,6 @@
+using System.Text;
+using System.Windows.Forms;
+
 namespace LicencePlateManagement
 {
     public partial class Form1 : Form
@@ -20,12 +23,89 @@ namespace LicencePlateManagement
 
         private void BtnFileLoad_Click(object sender, EventArgs e)
         {
-            // TODO
+            // Setup open file dialog.
+            OpenFileDialog openFileDialog = new()
+            {
+                InitialDirectory = Application.StartupPath,
+                FileName = "day_",
+                Filter = "txt file|*.txt",
+                DefaultExt = "txt",
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Update status label with opened file information.
+                toolStripStatusLabel.Text = $"File opened: {openFileDialog.FileName}";
+
+                // Clear existing licence plates.
+                licencePlates.Clear();
+
+                // Read file line-by-line and add licence plates to List.
+                using (StreamReader sr = File.OpenText(openFileDialog.FileName))
+                {
+                    string? s = String.Empty;
+                    while ((s = sr.ReadLine()) is not null)
+                    {
+                        // Skip line if empty.
+                        if (s == String.Empty) continue;
+
+                        // Add licence plate from the file to the List.
+                        licencePlates.Add(s.ToUpper());
+                    }
+                }
+                ShowList(licencePlates, listBoxMain);
+            }
         }
 
         private void BtnFileSave_Click(object sender, EventArgs e)
         {
-            // TODO
+            string startPath = Application.StartupPath;
+            // Get existing files to automatically set default name of new file.
+            List<int> fileNumbers = [];
+            foreach ( var file in Directory.GetFiles(startPath, "day_*.txt"))
+            {
+                // Extract the day number from each file name.
+                string fileNumber = Path.GetFileName(file).Replace("day_", "").Replace(".txt", "");
+                fileNumbers.Add(int.Parse(fileNumber));
+            }
+            // Set new number to largest + 1, or 1 if no other files exist.
+            int num = ((fileNumbers.Count > 0) ? fileNumbers.Max() : 0) + 1;
+            // Add zeros to start of number so it at least two digits.
+            string newFileName = $"day_{num:00}";
+
+            SaveFileDialog saveFileDialog = new()
+            {
+                InitialDirectory = startPath,
+                FileName = newFileName,
+                Filter = "txt file|*.txt",
+                DefaultExt = "txt",
+            };
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Update status label with file saved information.
+                toolStripStatusLabel.Text = $"File saved: {saveFileDialog.FileName}";
+
+                string path = saveFileDialog.FileName;
+
+                if (!path.Equals(""))
+                {
+                    // If file already exists, then delete it.
+                    if (File.Exists(path))
+                    {
+                        File.Delete(path);
+                    }
+
+                    string fileContents = string.Join("\n", licencePlates);
+                    // Create the file to save.
+                    using (FileStream fs = File.Create(path))
+                    {
+                        byte[] contents = new UTF8Encoding().GetBytes(fileContents);
+                        fs.Write(contents, 0, contents.Length);
+                    }
+                }
+
+            }
         }
 
         private void BtnFileReset_Click(object sender, EventArgs e)
@@ -35,6 +115,9 @@ namespace LicencePlateManagement
             taggedLicencePlates.Clear();
             ShowList(licencePlates, listBoxMain);
             ShowList(taggedLicencePlates, listBoxTagged);
+
+            // Update status label.
+            toolStripStatusLabel.Text = $"Reset all data";
         }
 
         private void BtnActionEnter_Click(object sender, EventArgs e)
@@ -248,10 +331,6 @@ namespace LicencePlateManagement
             }
             return true;
         }
-
-
-
-
 
         private void ResizeTableLayoutContent()
         {
