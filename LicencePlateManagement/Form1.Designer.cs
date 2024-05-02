@@ -254,18 +254,17 @@
             // 
             tableLayoutActions.AutoSize = true;
             tableLayoutActions.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            tableLayoutActions.ColumnCount = 5;
-            tableLayoutActions.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33667F));
-            tableLayoutActions.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.663332F));
-            tableLayoutActions.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 0F));
-            tableLayoutActions.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.663332F));
-            tableLayoutActions.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33667F));
+            tableLayoutActions.ColumnCount = 4;
+            tableLayoutActions.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
+            tableLayoutActions.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.67F));
+            tableLayoutActions.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.67F));
+            tableLayoutActions.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
             tableLayoutActions.Controls.Add(txtBoxAction, 0, 0);
             tableLayoutActions.Controls.Add(btnActionEnter, 0, 1);
             tableLayoutActions.Controls.Add(btnActionExit, 1, 1);
             tableLayoutActions.Controls.Add(btnActionSearchBinary, 0, 2);
-            tableLayoutActions.Controls.Add(btnActionSearchLinear, 3, 2);
-            tableLayoutActions.Controls.Add(btnActionEdit, 4, 1);
+            tableLayoutActions.Controls.Add(btnActionSearchLinear, 2, 2);
+            tableLayoutActions.Controls.Add(btnActionEdit, 3, 1);
             tableLayoutActions.Dock = DockStyle.Fill;
             tableLayoutActions.Location = new Point(3, 19);
             tableLayoutActions.Name = "tableLayoutActions";
@@ -279,7 +278,7 @@
             // txtBoxAction
             // 
             txtBoxAction.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            tableLayoutActions.SetColumnSpan(txtBoxAction, 5);
+            tableLayoutActions.SetColumnSpan(txtBoxAction, 4);
             txtBoxAction.Location = new Point(3, 3);
             txtBoxAction.Name = "txtBoxAction";
             txtBoxAction.PlaceholderText = "Enter licence plate";
@@ -302,7 +301,7 @@
             // btnActionExit
             // 
             btnActionExit.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            tableLayoutActions.SetColumnSpan(btnActionExit, 3);
+            tableLayoutActions.SetColumnSpan(btnActionExit, 2);
             btnActionExit.Location = new Point(130, 32);
             btnActionExit.Name = "btnActionExit";
             btnActionExit.Size = new Size(120, 23);

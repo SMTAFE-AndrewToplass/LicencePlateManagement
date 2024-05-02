@@ -1,6 +1,4 @@
-using System.ComponentModel;
 using System.Text;
-using System.Windows.Forms;
 
 namespace LicencePlateManagement
 {
@@ -65,11 +63,13 @@ namespace LicencePlateManagement
 
         private void BtnFileSave_Click(object sender, EventArgs e)
         {
+            // Save program data when save button clicked.
             SaveData();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // Save program data when close button pressed.
             SaveData();
         }
 
@@ -181,6 +181,7 @@ namespace LicencePlateManagement
             int idx = licencePlates.BinarySearch(licence);
             if (idx >= 0)
             {
+                // Item was found, select it inside the listbox, and update status label.
                 listBoxMain.SelectedIndex = idx;
 
                 // Update status label.
@@ -188,6 +189,7 @@ namespace LicencePlateManagement
             }
             else
             {
+                // Item was not found, show message and focus on textbox.
                 MessageBox.Show("Item not found in list.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 // Set focus back to the text box.
                 txtBoxAction.Focus();
@@ -204,6 +206,7 @@ namespace LicencePlateManagement
             int idx = LinearSearch(licencePlates, licence);
             if (idx >= 0)
             {
+                // Item was found, select it inside the listbox, and update status label.
                 listBoxMain.SelectedIndex = idx;
 
                 // Update status label.
@@ -211,6 +214,7 @@ namespace LicencePlateManagement
             }
             else
             {
+                // Item was not found, show message and focus on textbox.
                 MessageBox.Show("Item not found in list.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 // Set focus back to the text box.
                 txtBoxAction.Focus();
@@ -244,6 +248,7 @@ namespace LicencePlateManagement
             // If there is no selected item inside the listbox, then cancel.
             if (i < 0) return;
 
+            // Get item before operation for status label.
             string licence = taggedLicencePlates[i];
 
             // Move the selected licence plate to the tagged list.
@@ -286,10 +291,6 @@ namespace LicencePlateManagement
                 licencePlates.RemoveAt(i);
                 ShowList(licencePlates, listBoxMain);
             }
-            else
-            {
-                return;
-            }
         }
 
         private void ListBoxTagged_DoubleClick(object sender, EventArgs e)
@@ -299,6 +300,7 @@ namespace LicencePlateManagement
             // If not item is selected, return.
             if (i < 0) return;
 
+            // Store value of item before operation for the status label.
             string licence = taggedLicencePlates[i];
 
             // Move the selected licence plate to the tagged list.
@@ -457,6 +459,9 @@ namespace LicencePlateManagement
             }
         }
 
+        /// <summary>
+        /// Resizes the table layout panel and keeps controls centered.
+        /// </summary>
         private void ResizeTableLayoutContent()
         {
             tableLayoutContent.SuspendLayout();
@@ -464,6 +469,7 @@ namespace LicencePlateManagement
             // Limit size to the maximum width of the table layout.
             int maxWidth = tableLayoutContent.MaximumSize.Width;
             int newWidth = Math.Min(maxWidth, formWidth);
+            // Set width of table layout panel to new width.
             tableLayoutContent.Size = new Size(newWidth, 0);
             tableLayoutContent.ResumeLayout(true);
         }
